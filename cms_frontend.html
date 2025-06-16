@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>PHP CMS - Dashboard</title>
+  <link rel="stylesheet" href="cms_styles.css" />
+</head>
+<body>
+  <header>
+    <div class="container header-container">
+      <h1>My CMS</h1>
+      <nav>
+        <ul class="nav">
+          <li><a href="dashboard.php">Dashboard</a></li>
+          <li><a href="upload.php">Upload</a></li>
+          <li><a href="users.php">Users</a></li>
+          <li><a href="logout.php">Logout</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <section class="welcome">
+      <h2>Welcome, <?php echo $_SESSION['username']; ?>!</h2>
+      <p>This is your dashboard. Use the navigation to manage files, users, and more.</p>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 My CMS. All rights reserved.</p>
+  </footer>
+</body>
+</html>

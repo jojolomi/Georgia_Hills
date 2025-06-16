@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CMS Dashboard</title>
+  <link rel="stylesheet" href="cms_styles.css">
+</head>
+<body>
+  <header>
+    <div class="logo">CMS</div>
+    <nav class="nav_bar">
+      <ul class="nav_list">
+        <li><a href="dashboard.php" class="active">Dashboard</a></li>
+        <li><a href="upload.php">Upload</a></li>
+        <li><a href="manage.php">Manage Users</a></li>
+        <li><a href="logout.php">Logout</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <main class="dashboard">
+    <section class="welcome">
+      <h1>Welcome, Admin</h1>
+      <p>Use the navigation above to manage content, users, and view logs.</p>
+    </section>
+
+    <section class="cards">
+      <div class="card">
+        <h2>Users</h2>
+        <p>View, edit, and delete users based on their roles.</p>
+      </div>
+      <div class="card">
+        <h2>File Uploads</h2>
+        <p>Upload files and store records in the database.</p>
+      </div>
+      <div class="card">
+        <h2>Logs</h2>
+        <p>Access the file with user activity and notes.</p>
+      </div>
+    </section>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 CMS System. All rights reserved.</p>
+  </footer>
+</body>
+</html>
