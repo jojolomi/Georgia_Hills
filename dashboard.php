@@ -6,7 +6,6 @@ if (!isset($_SESSION['user'])) {
     header("Location: login.html");
     exit;
 }
-
 $user = $_SESSION['user'];
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_FILES['file'])) {

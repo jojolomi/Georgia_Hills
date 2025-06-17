@@ -5,10 +5,10 @@ class DB {
     public static function connect() {
         if (!self::$conn) {
             try {
-                $serverName = "localhost"; // or "localhost\SQLEXPRESS" if using Express
+                $serverName = "localhost";
                 $dbName = "GeorgiaHillsDB";
-                $username = "your_sql_username";
-                $password = "your_sql_password";
+                $username = "phpuser";
+                $password = "Jojododo102009!";
 
                 $dsn = "sqlsrv:Server=$serverName;Database=$dbName";
                 self::$conn = new PDO($dsn, $username, $password);
