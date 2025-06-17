@@ -1,22 +1,21 @@
-<?php
-require_once 'classes/User.php';
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Register | Georgia Hills</title>
+    <link rel="stylesheet" href="index.css">
+</head>
+<body>
+    <h2>Register</h2>
+    <form action="register.php" method="POST">
+        <input type="text" name="username" placeholder="Username" required />
+        <input type="email" name="email" placeholder="Email" required />
+        <input type="password" name="password" placeholder="Password" required />
+        <input type="password" name="confirm_password" placeholder="Confirm Password" required />
+        <button type="submit">Register</button>
+    </form>
+    <p><a href="login.html">Already have an account? Login</a></p>
 
-$user = new User();
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = $_POST['username'];
-    $email    = $_POST['email'];
-    $password = $_POST['password'];
-    $confirm  = $_POST['confirm_password'];
-
-    if ($password !== $confirm) {
-        die("Passwords do not match!");
-    }
-
-    if ($user->register($username, $email, $password)) {
-        header("Location: login.html");
-    } else {
-        echo "Registration failed.";
-    }
-}
-?>
+    <?php if (isset($_GET['error'])) echo "<p style='color:red'>" . htmlspecialchars($_GET['error']) . "</p>"; ?>
+</body>
+</html>
