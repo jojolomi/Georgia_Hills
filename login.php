@@ -10,7 +10,7 @@ $email = $_SESSION['user']['email'] ?? null;
 <head>
   <meta charset="UTF-8">
   <title>Georgia Hills | Login</title>
-  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="style/index.css">
   <script type="module" src="header.js"></script>
 </head>
 

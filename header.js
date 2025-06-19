@@ -3,7 +3,7 @@ class MyHeader extends HTMLElement {
     this.innerHTML = `
       <header>
         <a href="index.html" class="logo">
-          <img src="circular_logo.ico" alt="Georgia Hills">
+          <img src="Photos_icons/georgiahills_logo(circular).ico" alt="Georgia Hills">
         </a>
         <div id="Headerid">
           <nav class="nav_bar">

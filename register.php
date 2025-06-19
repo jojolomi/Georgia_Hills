@@ -9,7 +9,7 @@ $error = $_GET['error'] ?? '';
 <head>
   <meta charset="UTF-8">
   <title>Georgia Hills | Register</title>
-  <link rel="stylesheet" href="index.css">
+  <link rel="stylesheet" href="style/index.css">
   <script type="module" src="header.js"></script>
 </head>
 
