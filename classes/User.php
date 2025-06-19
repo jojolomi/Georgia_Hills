@@ -1,43 +1,49 @@
 <?php
-require_once __DIR__ . '/../db.php';
-
 class User {
-    private $conn;
+    private $email;
+    private $password;
+    private static $file = __DIR__ . 'users.txt';
 
-    public function __construct() {
-        $this->conn = DB::connect();
-        session_start();
+    public function __construct($email, $password) {
+        $this->email = trim($email);
+        $this->password = trim($password);
     }
 
-    public function register($username, $email, $password) {
-        $hash = password_hash($password, PASSWORD_BCRYPT);
-        $stmt = $this->conn->prepare("INSERT INTO users (username, email, password) VALUES (?, ?, ?)");
-        return $stmt->execute([$username, $email, $hash]);
+    public function save() {
+        $data = [
+            'email' => $this->email,
+            'password' => $this->password
+        ];
+        file_put_contents(self::$file, json_encode($data) . PHP_EOL, FILE_APPEND);
     }
 
-    public function login($username, $password) {
-        $stmt = $this->conn->prepare("SELECT * FROM users WHERE username = ?");
-        $stmt->execute([$username]);
-        $user = $stmt->fetch();
-        if ($user && password_verify($password, $user['password'])) {
-            $_SESSION['user'] = $user;
-            setcookie("last_login", date("Y-m-d H:i:s"), time() + 3600);
-            return true;
+    public static function exists($email) {
+        $users = self::getAll();
+        foreach ($users as $user) {
+            if ($user['email'] === $email) {
+                return true;
+            }
         }
         return false;
     }
 
-    public function isLoggedIn() {
-        return isset($_SESSION['user']);
+    public static function authenticate($email, $password) {
+        $users = self::getAll();
+        foreach ($users as $user) {
+            if ($user['email'] === $email && $user['password'] === $password) {
+                return true;
+            }
+        }
+        return false;
     }
 
-    public function getUser() {
-        return $_SESSION['user'] ?? null;
-    }
-
-    public function logout() {
-        session_destroy();
-        setcookie("last_login", "", time() - 3600);
+    public static function getAll() {
+        if (!file_exists(self::$file)) return [];
+        $lines = file(self::$file, FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
+        $users = [];
+        foreach ($lines as $line) {
+            $users[] = json_decode($line, true);
+        }
+        return $users;
     }
 }
-?>

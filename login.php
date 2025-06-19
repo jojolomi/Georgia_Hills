@@ -1,20 +1,53 @@
+<?php
+session_start();
+$success = $_GET['success'] ?? '';
+$error = $_GET['error'] ?? '';
+$email = $_SESSION['user']['email'] ?? null;
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <title>Login | Georgia Hills</title>
-    <link rel="stylesheet" href="index.css">
+  <meta charset="UTF-8">
+  <title>Georgia Hills | Login</title>
+  <link rel="stylesheet" href="index.css">
+  <script type="module" src="header.js"></script>
 </head>
-<body>
-    <h2>Login</h2>
-    <form action="login.php" method="POST">
-        <input type="text" name="username" placeholder="Username" required />
-        <input type="password" name="password" placeholder="Password" required />
-        <button type="submit">Login</button>
-    </form>
-    <p><a href="registration.html">Don't have an account? Register</a></p>
 
-    <?php if (isset($_GET['error'])) echo "<p style='color:red'>" . htmlspecialchars($_GET['error']) . "</p>"; ?>
-    <?php if (isset($_GET['success'])) echo "<p style='color:green'>" . htmlspecialchars($_GET['success']) . "</p>"; ?>
+<body id="login_body">
+<my-header></my-header>
+
+<div class="containercentr">
+  <div class="container">
+    <?php if ($success): ?>
+      <p style="color:green;"><?= htmlspecialchars($success) ?></p>
+    <?php elseif ($error): ?>
+      <p style="color:red;"><?= htmlspecialchars($error) ?></p>
+    <?php endif; ?>
+
+    <?php if ($email): ?>
+      <p>Welcome, <strong><?= htmlspecialchars($email) ?></strong>!</p>
+      <form method="POST" action="logout.php">
+        <button type="submit" id="form_button">Logout</button>
+      </form>
+    <?php else: ?>
+      <form method="POST" action="login_handler.php">
+        <fieldset>
+          <legend>Login</legend>
+
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" required>
+
+          <label for="password">Password</label>
+          <input type="password" id="password" name="password" required>
+
+          <button type="submit" id="form_button">Login</button>
+        </fieldset>
+      </form>
+    <?php endif; ?>
+
+    <div class="toggle" onclick="location.href='register.php'">Don't have an account? Register</div>
+  </div>
+</div>
 </body>
 </html>

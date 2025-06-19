@@ -1,35 +1,21 @@
 <?php
 session_start();
-require_once 'db.php';
+require_once 'classes/User.php';
 
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+$email = trim($_POST['email'] ?? '');
+$password = trim($_POST['password'] ?? '');
 
-    try {
-        $conn = DB::connect();
-        $stmt = $conn->prepare("SELECT * FROM users WHERE username = ?");
-        $stmt->execute([$username]);
-        $user = $stmt->fetch();
-
-        if ($user && password_verify($password, $user['password'])) {
-            $_SESSION['user'] = [
-                'id' => $user['id'],
-                'username' => $user['username'],
-                'email' => $user['email']
-            ];
-            header("Location: dashboard.php");
-            exit;
-        } else {
-            header("Location: login.html?error=Invalid username or password");
-            exit;
-        }
-    } catch (PDOException $e) {
-        header("Location: login.html?error=Database error: " . urlencode($e->getMessage()));
-        exit;
-    }
+if (!$email || !$password) {
+    header("Location: login.php?error=Please fill in both fields");
+    exit;
 }
 
-header("Location: login.html");
-exit;
-?>
+if (User::authenticate($email, $password)) {
+    $_SESSION['user'] = ['email' => $email];
+    setcookie('email', $email, time() + 86400 * 7, "/");
+    header("Location: login.php?success=Logged in successfully");
+    exit;
+} else {
+    header("Location: login.php?error=Invalid email or password");
+    exit;
+}

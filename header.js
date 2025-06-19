@@ -16,7 +16,7 @@ class MyHeader extends HTMLElement {
             </ul>
           </nav>
         </div>
-        <button class="book" onclick="location.href='login.html'" type="button">Book Now</button>      </header>
+        <button class="book" onclick="location.href='login.php'" type="button">Log In</button>      </header>
     `;
 
     const path = window.location.pathname.split("/").pop() || 'index.html';
